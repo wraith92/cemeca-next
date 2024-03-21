@@ -1,18 +1,19 @@
-
 export const authConfig = {
- 
-  providers:[],
+  providers: [], // Ajoutez vos providers d'authentification ici
+  
   pages: {
     signIn: "/login",
   },
+  
   jwt: {
     secret: process.env.JWT_SECRET, // Assurez-vous que cette variable d'environnement est définie
   },
+
   callbacks: {
     authorized({ auth, request }) {
       const isLoggedIn = auth?.user;
-      const isOnDashboard = request.nextUrl.pathname.startsWith("");
-      if (isOnDashboard) {
+      const isOnHomePage = request.nextUrl.pathname === "/";
+      if (isOnHomePage) {
         if (isLoggedIn) return true;
         return false;
       } else if (isLoggedIn) {

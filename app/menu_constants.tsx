@@ -1,4 +1,4 @@
-import { SideNavItemGroup } from "../types/type";
+import { SideNavItemGroup } from "@/types/type";
 import { BsEnvelope, BsGear, BsHouseDoor, BsKanban, BsListUl, BsQuestionCircle } from "react-icons/bs";
 
 
@@ -13,6 +13,7 @@ export const SIDENAV_ITEMS: SideNavItemGroup[] = [
             icon: <BsHouseDoor size={20} />,
         }]
     },
+    
     {
         title: "Manage",
         menuList: [

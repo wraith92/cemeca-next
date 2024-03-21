@@ -3,8 +3,14 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem,
 import { Button } from "./ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import Link from "next/link";
+import  {logout}  from "../app/lib/action/user"
 
 export function UserNav() {
+
+    const handleLogout = async () => {
+        await logout();
+    }
+
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -36,9 +42,7 @@ export function UserNav() {
                     </DropdownMenuItem>
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>
-                    <Link href="">Log out</Link>
-                </DropdownMenuItem>
+                <DropdownMenuItem onSelect={handleLogout}>Log out</DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>
     );

@@ -5,7 +5,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import prisma from "../prisma";
 import bcrypt from "bcrypt";
-import { signIn } from "../../auth";
+import { signIn,signOut } from "../../auth";
 
 
 export const addUser = async (formData) => {
@@ -75,6 +75,14 @@ export const authenticate = async (prevState, formData) => {
      throw err;
    }
  };
+
+ export const logout = async () => {
+    await signOut();
+    redirect("/login");
+
+    // Faire quelque chose après la déconnexion
+     }
+     
    
 export const updateUser = async (id, formData) => {
    const prisma = new PrismaClient();

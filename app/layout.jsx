@@ -1,26 +1,25 @@
-import { Karla } from 'next/font/google'
-import './globals.css'
-import { SideBar } from '../components/sidebar';
-import Header from '../components/header';
-import PageWrapper from '../components/pagewrapper';
-import { ThemeProvider } from '../components/theme-provider';
-import { Metadata } from 'next';
+// Importations nécessaires pour votre composant
+import { Karla } from 'next/font/google';
+import './globals.css';
+import { SideBar } from '@/components/sidebar'; // Assurez-vous que le chemin d'importation est correct
+import Header from '@/components/header';
+import PageWrapper from '@/components/pagewrapper';
+import { ThemeProvider } from '@/components/theme-provider';
+
 
 const karla = Karla({
   weight: ["200", "300", "400", "500", "600", "700", "800"],
   subsets: ['latin'],
   variable: "--font-karla"
-})
-export const metadata: Metadata = {
+});
+
+export const metadata = {
   title: "Dz admin dashboard",
   description: "NextJs admin dashboard created by Sijin Raj"
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+// Le composant RootLayout en JSX
+export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={karla.className + ' h-screen overflow-hidden'}>
@@ -34,11 +33,11 @@ export default function RootLayout({
             <SideBar />
             <div className="flex flex-col h-full w-full">
               <Header />
-              <PageWrapper children={children} />
+              <PageWrapper>{children}</PageWrapper> {/* Correction pour passer correctement les enfants */}
             </div>
           </>
         </ThemeProvider>
       </body>
     </html>
-  )
+  );
 }
