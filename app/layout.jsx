@@ -33,7 +33,7 @@ export default function RootLayout({ children }) {
             <SideBar />
             <div className="flex flex-col h-full w-full">
               <Header />
-              <PageWrapper>{children}</PageWrapper> {/* Correction pour passer correctement les enfants */}
+              <PageWrapper className >{children}</PageWrapper> {/* Correction pour passer correctement les enfants */}
             </div>
           </>
         </ThemeProvider>

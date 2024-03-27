@@ -66,6 +66,7 @@ export const authenticate = async (prevState, formData) => {
  
    try {
      const user = await signIn("credentials", { email, password });
+     redirect("/");
      console.log(user);
      // Faire quelque chose avec l'utilisateur connecté
    } catch (err) {
