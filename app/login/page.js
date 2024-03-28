@@ -1,6 +1,8 @@
 "use client";
 import React from 'react'
 import { authenticate } from '../lib/action/user';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from "@/components/ui/input"
 import { useFormState, useFormStatus} from "react-dom";
 import Submit from '@/components/Loading';
 
@@ -8,39 +10,48 @@ import Submit from '@/components/Loading';
 
 const Login = async () => {
   const [state, formAction] = useFormState(authenticate, undefined);
+  const title = "Connexion";
 
   return (
     <div className="flex items-center justify-center h-screen">
-      <form action={formAction} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-        <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
-            Email
-          </label>
-          <input
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            type="email"
-            name="email"
-            placeholder="email"
-            required
-          />
-        </div>
-        <div className="mb-6">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
-            Password
-          </label>
-          <input
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-            type="password"
-            name="password"
-            placeholder="password"
-            required
-          />
-        </div>
-        <div className="flex items-center justify-between">
-          <Submit />
-        </div>
-        {state && state}
-      </form>
+
+      <Card className="w-full max-w-md">
+        <CardHeader>
+          <CardTitle>Connexion</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <form action={formAction} className="form-control">
+            {/* Champs de formulaire */}
+            <div className="mb-4">
+              <label className="label">
+                <span className="label-text">Email</span>
+              </label>      
+              <Input
+                type="email"
+                name="email"
+                className="input input-bordered"
+                required
+              />
+            </div>
+
+            <div className="mb-4">
+              <label className="label">
+                <span className="label-text">Password</span>
+              </label>
+              <Input
+                type="password"
+                name="password"
+                className="input input-bordered"
+                required
+              />
+            </div>
+            <div className='flex justify-center'>
+              <Submit title={title}/>
+            </div>
+            {state && state}
+          </form>
+        </CardContent>
+      </Card>
     </div>
   );
 }

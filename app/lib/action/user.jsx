@@ -60,21 +60,19 @@ export const addUser = async (formData) => {
 
 // les authentifications
 export const authenticate = async (prevState, formData) => {
-   const { email, password } = Object.fromEntries(formData);
-   console.log(email)
-   console.log(password)
+    const { email, password } = Object.fromEntries(formData);
  
-   try {
-     const user = await signIn("credentials", { email, password });
-     redirect("/");
-     console.log(user);
-     // Faire quelque chose avec l'utilisateur connecté
-   } catch (err) {
-     if (err.message.includes("CredentialsSignin")) {
-       return "Wrong Credentials";
-     }
-     throw err;
-   }
+    try {
+       await signIn("credentials", { email, password });
+       await new Promise((resolve) => setTimeout(resolve, 3000));
+       
+    } catch (err) {
+       if (err.message.includes("CredentialsSignin")) {
+          return "Wrong Credentials";
+       }
+       throw err;
+    }
+    
  };
 
  export const logout = async () => {

@@ -21,8 +21,20 @@ export const metadata = {
 
 // Le composant RootLayout en JSX
 export default async function RootLayout({ children }) {
-  const { user } = await auth();
- 
+  let user = null;
+  try {
+    const authResult = await auth();
+    if (authResult !== null && authResult !== undefined) {
+      user = authResult.user;
+    } else {
+      console.log("pas connecté,User:", user);
+    }
+  } catch (error) {
+    console.error("Erro:", error);
+    user = null; // Set user to null in case of error
+  }
+
+
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={karla.className + ' h-screen overflow-hidden'}>
@@ -35,8 +47,8 @@ export default async function RootLayout({ children }) {
           <>
             <SideBar auth={user} />
             <div className="flex flex-col h-full w-full">
-              <Header auth={user} />
-              <PageWrapper className >{children}</PageWrapper> {/* Correction pour passer correctement les enfants */}
+             <Header auth={user} /> 
+              <PageWrapper className>{children}</PageWrapper>
             </div>
           </>
         </ThemeProvider>
@@ -44,3 +56,5 @@ export default async function RootLayout({ children }) {
     </html>
   );
 }
+
+

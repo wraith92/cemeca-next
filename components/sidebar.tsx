@@ -1,36 +1,31 @@
 "use client";
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useSideBarToggle } from '@/hooks/use-sidebar-toggle';
 import SideBarMenuGroup from './sidebar-menu-group';
 import { SideBarLogo } from './sidebar-logo';
-import { getUser } from '../app/lib/data/auth';
 import { SIDENAV_ITEMS } from '@/app/menu_constants';
 
-export const SideBar = () => {
-    const [mounted, setMounted] = useState(false);
+export const SideBar = ({auth}) => {
+
+    const [mounted, setMounted] = useState(true);
     const { toggleCollapse } = useSideBarToggle();
-    const [user, setUser] = useState(null); 
 
-    useEffect(() => {
-        setMounted(true); 
-
-        const fetchUser = async () => {
-            const userData = await getUser(); 
-            setUser(userData); 
-        };
-
-        fetchUser();
-    }, []); 
-
-    // Filtrer les éléments du menu en fonction des critères spécifiques, ici basé sur l'utilisateur
     const filteredSidenavItems = SIDENAV_ITEMS.filter(group => {
-        if (group.title === "Others" && !user?.roles.includes("cemeca")) {
-            // Exclure le groupe "Others" si l'utilisateur n'est pas un admin
+        if (!auth) {
+            return group.title === "Login";
+        } else if (group.title === "Others" && !auth?.roles.includes("cemeca")) {
+            return false;
+        } else if (group.title === "Login") {
+            return false;
+        }
+        else if (group.title === "Manage" && !auth?.roles.includes("admin")) {
+            return false;
+        }
+        if (group.title === "Others" && !auth?.roles.includes("cemeca")) {
             return false;
         }
         group.menuList = group.menuList.filter(item => {
-            if (item.title === "Feedbacks" && !user?.roles.includes("cemeca")) {
-                // Exclure le menu "Feedbacks" si l'utilisateur n'est pas un admin
+            if (item.title === "Feedbacks" && !auth?.roles.includes("cemeca")) {
                 return false;
             }
             return true;
@@ -44,7 +39,7 @@ export const SideBar = () => {
         <aside className={asideStyle}>
             <div className="sidebar-top relative flex items-center px-3.5 py-5">
                 {mounted && <SideBarLogo />}
-                <h3 className={`pl-2 font-bold text-2xl min-w-max text-sidebar-foreground ${toggleCollapse ? "hidden" : ""}`}>{user?.username}</h3>
+                <h3 className={`pl-2 font-bold text-2xl min-w-max text-sidebar-foreground ${toggleCollapse ? "hidden" : ""}`}>{auth ? auth.role : "pas connecté" }</h3>
             </div>
             <nav className="flex flex-col gap-2 transition duration-300 ease-in-out">
                 <div className="flex flex-col gap-2 px-4">

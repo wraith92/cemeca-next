@@ -1,3 +1,4 @@
+"use client"
 import * as React from "react"
 import {
     ColumnDef,
@@ -16,9 +17,9 @@ import {
     TableHead,
     TableHeader,
     TableRow,
-} from "@/components/ui/table"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
+} from "../table"
+import { Button } from "../button"
+import { Input } from "../input"
 
 
 interface DataTableProps<TData, TValue> {
