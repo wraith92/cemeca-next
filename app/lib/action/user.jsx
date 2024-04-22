@@ -10,6 +10,8 @@ import { signIn,signOut } from "../../auth";
 
 export const addUser = async (formData) => {
    const { username, email, password, roleId } = Object.fromEntries(formData);
+   console.log("formData", formData);
+   
  
    try {
        // Vérifier si l'utilisateur existe déjà
@@ -137,5 +139,4 @@ export const deleteUser = async (id) => {
     }
     };
 
-
-
+    //societe

@@ -14,16 +14,14 @@ export const SideBar = ({auth}) => {
         if (!auth) {
             return group.title === "Login";
         } else if (group.title === "Others" && !auth?.roles.includes("cemeca")) {
-            return false;
+            return true;
         } else if (group.title === "Login") {
             return false;
         }
         else if (group.title === "Manage" && !auth?.roles.includes("admin")) {
             return false;
         }
-        if (group.title === "Others" && !auth?.roles.includes("cemeca")) {
-            return false;
-        }
+      
         group.menuList = group.menuList.filter(item => {
             if (item.title === "Feedbacks" && !auth?.roles.includes("cemeca")) {
                 return false;

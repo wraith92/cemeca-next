@@ -1,6 +1,6 @@
 "use client"
 
-import { LineChart, Line, ResponsiveContainer, XAxis, YAxis } from "recharts"
+import { LineChart, Line, ResponsiveContainer, XAxis, YAxis , Tooltip, Legend } from "recharts"
 
 const data = [
   {
@@ -57,6 +57,8 @@ export function Overview() {
   return (
     <ResponsiveContainer width="100%" height={350}>
       <LineChart data={data}>
+      <Tooltip />
+<Legend />
         <XAxis
           dataKey="name"
           stroke="#888888"
@@ -72,6 +74,7 @@ export function Overview() {
           tickFormatter={(value) => `${value}`}
         />
         <Line
+        
           dataKey="total"
           fill="currentColor"
           className="fill-primary"

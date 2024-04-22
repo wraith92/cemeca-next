@@ -46,6 +46,7 @@ export const { signIn, signOut, auth } = NextAuth({
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
+        token.id = user.id;
         token.username = user.username;
         token.email = user.email;
         token.roles = user.roles; // Ajouter les rôles au token
@@ -54,6 +55,7 @@ export const { signIn, signOut, auth } = NextAuth({
     },
     async session({ session, token }) {
       if (token) {
+        session.user.id = token.id;
         session.user.username = token.username;
         session.user.email = token.email;
         session.user.roles = token.roles; // Ajouter les rôles à la session

@@ -8,37 +8,97 @@ datasource db {
 }
 
 model User {
-  id                  Int      @id @default(autoincrement())
+  id                  Int            @id @default(autoincrement())
   username            String
-  email               String   @unique
+  email               String         @unique
   password            String
-  passwordLastChanged DateTime? @map("password_last_changed")
-  resetToken          String?  @map("reset_token")
-  resetTokenExpires   DateTime? @map("reset_token_expires")
-  twoFactorAuthSecret Json?    @map("two_factor_auth_secret")
-  loginAttempts       Int      @default(0)
-  blockedUntil        DateTime? @map("blocked_until")
-  createdAt           DateTime @default(now())
-  updatedAt           DateTime @updatedAt
-  roles               Role[]   @relation("UserRoles")
+  passwordLastChanged DateTime?      @map("password_last_changed")
+  resetToken          String?        @map("reset_token")
+  resetTokenExpires   DateTime?      @map("reset_token_expires")
+  twoFactorAuthSecret Json?          @map("two_factor_auth_secret")
+  loginAttempts       Int            @default(0)
+  blockedUntil        DateTime?      @map("blocked_until")
+  createdAt           DateTime       @default(now())
+  updatedAt           DateTime       @updatedAt
+  roles               Role[]         @relation("UserRoles")
+  societes            Societe[]
+  actions             Action[]
 }
 
 model Role {
-  id    Int    @id @default(autoincrement())
-  name  String
-  createdAt           DateTime @default(now())
-  updatedAt           DateTime @updatedAt
-  users User[] @relation("UserRoles")
+  id        Int      @id @default(autoincrement())
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  users     User[]   @relation("UserRoles")
 }
 
-// This model is now commented out as it's not needed for an implicit many-to-many relationship.
-// If you need an explicit many-to-many relationship (for example, to store additional fields),
-// you can uncomment and adjust this model accordingly.
-// model UserRoles {
-//   user   User @relation(fields: [userId], references: [id])
-//   userId Int
-//   role   Role @relation(fields: [roleId], references: [id])
-//   roleId Int
-//
-//   @@id([userId, roleId])
-// }
+model Societe {
+  id                   Int            @id @default(autoincrement())
+  siret                BigInt         @unique
+  siren                BigInt?
+  nom_soc              String?
+  nom_responsable_soc  String?
+  date_creation_soc    DateTime?
+  activite_soc         String?
+  libelle_naf          String?
+  adresse_local        String?
+  pays                 String?
+  ville_soc            String?
+  code_postal          Int?
+  syndicat             String?
+  observation          String?
+  tel                  String?
+  app_sofitech         Boolean?
+  app_cemeca           Boolean?
+  soc_sofitech         Boolean?
+  soc_cemeca           Boolean?
+  origineprospect      String?
+  createdAt            DateTime       @default(now())
+  updatedAt            DateTime       @updatedAt
+  id_utili             Int?
+  utilisateur          User?          @relation(fields: [id_utili], references: [id])
+  interlocuteurs       Interlocuteur[]
+  actions              Action[]
+}
+
+model Action {
+  id                Int             @id @default(autoincrement())
+  date_action       DateTime?
+  description       String?
+  nom_interlocuteur String?
+  type_action       String?
+  nom_societe       String?
+  date_rdv          DateTime?
+  validation        String?
+  besoin            String?
+  investissement    String?
+  montant           String?
+  date_factor       String?
+  date_assur        String?
+  nom_assur         String?
+  nom_factor        String?
+  credit_cop        String?
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+  id_soc            Int?
+  societe           Societe?        @relation(fields: [id_soc], references: [id])
+  id_utili          Int?
+  utilisateur       User?           @relation(fields: [id_utili], references: [id])
+  interlocuteurId   Int?
+  interlocuteur     Interlocuteur?  @relation(fields: [interlocuteurId], references: [id])
+}
+
+model Interlocuteur {
+  id               Int            @id @default(autoincrement())
+  nom              String?
+  prenom           String?
+  role             String?
+  email            String?
+  telephone        String?
+  societeId        Int?
+  societe          Societe?       @relation(fields: [societeId], references: [id])
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
+  actions          Action[]
+}

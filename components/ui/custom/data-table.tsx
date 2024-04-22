@@ -1,4 +1,3 @@
-"use client"
 import * as React from "react"
 import {
     ColumnDef,
@@ -20,7 +19,6 @@ import {
 } from "../table"
 import { Button } from "../button"
 import { Input } from "../input"
-
 
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[],
@@ -52,16 +50,6 @@ export function DataTable<TData, TValue>({ data, columns }: DataTableProps<TData
 
     return (
         <div className="w-full">
-            <div className="flex items-center py-4">
-                <Input
-                    placeholder="Filter product..."
-                    value={(table.getColumn("product")?.getFilterValue() as string) ?? ""}
-                    onChange={(event) =>
-                        table.getColumn("product")?.setFilterValue(event.target.value)
-                    }
-                    className="max-w-sm"
-                />
-            </div>
             <div className="rounded-md border">
                 <Table>
                     <TableHeader>

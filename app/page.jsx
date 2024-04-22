@@ -1,12 +1,13 @@
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Overview } from './components/overview'
-import { RecentSales } from './components/recent-sales'
+import { RecentSociete } from './components/recent-societe'
 import { auth } from './auth'
 
 export default async function Home() {
 
   const user = await auth()
+  console.log(user)
 
   
   
@@ -136,7 +137,7 @@ export default async function Home() {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <RecentSales />
+              <RecentSociete />
             </CardContent>
           </Card>
         </div>

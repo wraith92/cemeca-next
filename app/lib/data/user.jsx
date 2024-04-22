@@ -11,7 +11,7 @@ export const getUser = async (id) => {
    await prisma.$disconnect();
    return user;
    }
-   export const getUsers = async () => {
+export const getUsers = async () => {
       const prisma = new PrismaClient();
       try {
           let users = await prisma.user.findMany({
