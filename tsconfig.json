@@ -35,7 +35,7 @@
     ".next/types/**/*.ts",
     "**/*.ts",
     "**/*.tsx"
-, "app/components/recent-users.jsx", "app/lib/prisma.jsx", "app/api/societes/route.js"  ],
+, "app/components/user/recent-users.jsx", "app/lib/prisma.jsx", "app/api/societes/route.js"  ],
   "exclude": [
     "node_modules"
   ]

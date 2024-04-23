@@ -1,6 +1,6 @@
 import React from 'react';
 import { DataTable } from "@/components/ui/custom/data-table";
-import { getUsers } from "../lib/data/user";
+import { getUsers } from "../../lib/data/user";
 
 
 

@@ -1,7 +1,7 @@
-import { addSociete } from '../lib/action/societe';
-import {Input} from "../../components/ui/input"
-import {Button} from "../../components/ui/button";
-import Submit from "../../components/loading";
+import { addSociete } from '../../lib/action/societe';
+import {Input} from "../../../components/ui/input"
+import {Button} from "../../../components/ui/button";
+import Submit from "../../../components/loading";
 
 const AddTodo = ({ formData ,onSubmitSuccess }) => {
 

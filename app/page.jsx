@@ -1,7 +1,7 @@
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Overview } from './components/overview'
-import { RecentSociete } from './components/recent-societe'
+import { RecentSociete } from './components/societe/dash-societe'
 import { auth } from './auth'
 
 export default async function Home() {
@@ -131,7 +131,7 @@ export default async function Home() {
           </Card>
           <Card className="lg:col-span-3">
             <CardHeader>
-              <CardTitle>Recent Sales</CardTitle>
+              <CardTitle>Recent Company</CardTitle>
               <CardDescription>
                 You made 265 sales this month.
               </CardDescription>

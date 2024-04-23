@@ -2,10 +2,12 @@
 "use client"
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import AddTodo from '../components/add';
-import RecentSocietes from '../components/recent-societe';
+import AddTodo from '../components/societe/add';
+import RecentSocietes from '../components/societe/recent-societe';
 import { Input } from "../../components/ui/input"
 import Submit from "../../components/loading";
+import { Button } from "../../components/ui/button";
+import Link from 'next/link';
 const AddSociete = () => {
   const [formData, setFormData] = useState(null);
   const [updateCount, setUpdateCount] = useState(0);
@@ -59,9 +61,19 @@ const AddSociete = () => {
             </CardContent>
           </Card>
           <Card className="lg:col-span-4">
-            <CardHeader>
+          <CardHeader className="flex justify-between flex-row w-full">
+                {/* Flex container for title and description */}
+                <div className="flex-grow">
               <CardTitle>Sociétés récentes</CardTitle>
               <CardDescription>Voici les sociétés récemment ajoutées.</CardDescription>
+              </div>
+              <Link href="/societe/liste" passHref>
+                    <Button className="btn btn-primary flex items-center mt-0">
+                        <i className="fas fa-building mr-2"></i>
+                        Voir toutes les sociétés
+                    </Button>
+                </Link>
+              {/* Flex item for the button, aligned to the right */}
             </CardHeader>
             <CardContent>
               <RecentSocietes updateTrigger={updateCount} />

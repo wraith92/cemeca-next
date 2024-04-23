@@ -23,6 +23,7 @@ model User {
   roles               Role[]         @relation("UserRoles")
   societes            Societe[]
   actions             Action[]
+  interlocuteurs      Interlocuteur[] 
 }
 
 model Role {
@@ -98,7 +99,10 @@ model Interlocuteur {
   telephone        String?
   societeId        Int?
   societe          Societe?       @relation(fields: [societeId], references: [id])
+  id_utili         Int?
+  utilisateur      User?          @relation(fields: [id_utili], references: [id])
   createdAt        DateTime       @default(now())
   updatedAt        DateTime       @updatedAt
   actions          Action[]
 }
+

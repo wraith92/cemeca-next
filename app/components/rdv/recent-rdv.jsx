@@ -1,5 +1,5 @@
 // components/recent-societe.jsx
-
+"use client"
 import { DataTable } from "@/components/ui/custom/data-table";
 import { useEffect, useState } from "react";
 
