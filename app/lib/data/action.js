@@ -7,6 +7,25 @@ export async function getAction() {
    return actions;
 }
 
+//recuprer le nombre d'action si user sinon toutes les actions
+
+export async function getNumberAction(id_utili, role) {
+   let actions;
+   if (role === 'cemeca') {
+      actions = await prisma.action.findMany({
+         where: {
+            id_utili: id_utili,
+         },
+      });
+   } else {
+      actions = await prisma.action.findMany();
+   }
+   // Retourner le nombre d'actions récupérées
+   return actions.length;
+}
+
+
+
 export const columns = [
    {
       header: "Date de l'action",
