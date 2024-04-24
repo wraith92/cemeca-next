@@ -89,9 +89,6 @@ const AddInterlocuteur = ({ formData ,onSubmitSuccess }) => {
         />
       </div>
       
-      
-      
-
       {/* Ajouter d'autres champs selon les besoins */}
       <div className="flex justify-center">
         <Submit title="Ajouter" />

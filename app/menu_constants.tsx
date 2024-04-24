@@ -21,7 +21,7 @@ export const SIDENAV_ITEMS: SideNavItemGroup[] = [
       },
       {
         title: 'Action',
-        path: '/Action',
+        path: '/action',
         icon: <BsCardChecklist size={20} />,
       },
       {
