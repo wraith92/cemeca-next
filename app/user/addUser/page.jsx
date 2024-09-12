@@ -2,8 +2,8 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 
 import { Input } from "@/components/ui/input"
 import { addUser } from '../../lib/action/user';
-import Submit from '../../../components/Loading';
-import { RecentUsers } from '../../components/recent-users';
+import Submit from '../../../components/loading';
+import { RecentUsers } from '../../components/user/recent-users';
 
 
 const AddUser = () => {

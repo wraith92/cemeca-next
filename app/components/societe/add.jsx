@@ -2,75 +2,110 @@ import { addSociete } from '../../lib/action/societe';
 import {Input} from "../../../components/ui/input"
 import {Button} from "../../../components/ui/button";
 import Submit from "../../../components/loading";
+import jsPDF from 'jspdf';
 
-const AddTodo = ({ formData ,onSubmitSuccess }) => {
-
+const Actions = ({ formData, onSubmitSuccess }) => {
+  const [selectedSociete, setSelectedSociete] = useState(null);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const formData = new FormData(event.target); // Ensure you create FormData here
-  
-    const success = await addSociete(formData); // Now passing FormData directly
+    const formData = new FormData(event.target);
+
+    // Append the selected société ID to formData if it is selected
+    if (selectedSociete) {
+      formData.append('id_soc', selectedSociete.value);
+    }
+
+    const success = await addAction(formData); // Pass formData directly, now including selected societeId
     if (success) {
-      onSubmitSuccess(); // Assuming you have this function passed as prop
+      generatePDF(formData); // Generate PDF after successful submission
+      onSubmitSuccess(); // Call success callback if provided
     }
   };
-  
-     
-  if (!formData) return null;
+
+  const handleSelectChange = (selectedOption) => {
+    console.log('Selected Société:', selectedOption);
+    setSelectedSociete(selectedOption);
+  };
+
+  const generatePDF = (data) => {
+    const doc = new jsPDF();
+    doc.text('Action Information', 10, 10);
+    doc.text(`Description: ${data.get('description')}`, 10, 20);
+    doc.text(`Date: ${data.get('date')}`, 10, 30);
+    doc.text(`Montant: ${data.get('montant')}`, 10, 40);
+    doc.text(`Type: ${data.get('type')}`, 10, 50);
+    doc.text(`Statut: ${data.get('statut')}`, 10, 60);
+    // Ajouter d'autres champs selon les besoins
+    doc.save('action_info.pdf');
+  };
 
   return (
     <form onSubmit={handleSubmit} className="form-control">
+      <label htmlFor="societe">Société:</label>
+      <CustomAsyncSelect onChange={handleSelectChange} />
       {/* Champs de formulaire remplis avec les données de formData */}
       <div className="mb-4">
         <label className="label">
-          <span className="label-text">SIRET</span>
+          <span className="label-text">Description</span>
         </label>
         <Input
           type="text"
-          name="siret"
-          value={formData.siege.siret_formate}
+          name="description"
+          defaultValue={formData.description}
           className="input input-bordered"
           required
         />
       </div>
       <div className="mb-4">
         <label className="label">
-          <span className="label-text">Nom de la société</span>
+          <span className="label-text">Date</span>
         </label>
         <Input
-          type="text"
-          name="nom_soc"
-          value={formData.nom_entreprise}
+          type="date"
+          name="date"
+          defaultValue={formData.date}
           className="input input-bordered"
           required
         />
       </div>
       <div className="mb-4">
         <label className="label">
-          <span className="label-text">SIREN</span>
+          <span className="label-text">Montant</span>
         </label>
         <Input
-          type="text"
-          name="siren"
-          value={formData.siren_formate}
+          type="number"
+          name="montant"
+          defaultValue={formData.montant}
           className="input input-bordered"
           required
         />
       </div>
       <div className="mb-4">
         <label className="label">
-          <span className="label-text">Adresse</span>
+          <span className="label-text">Type</span>
         </label>
         <Input
           type="text"
-          name="adresse_local"
-          value={formData.siege.adresse_ligne_1}
+          name="type"
+          defaultValue={formData.type}
           className="input input-bordered"
           required
         />
       </div>
-      {/* Ajouter d'autres champs selon les besoins */}
+      <div className="mb-4">
+        <label className="label">
+          <span className="label-text">Statut</span>
+        </label>
+        <Input
+          type="text"
+          name="statut"
+          defaultValue={formData.statut}
+          className="input input-bordered"
+          required
+        />
+      </div>
+
       <div className="flex justify-center">
         <Submit title="Ajouter" />
       </div>
@@ -78,4 +113,4 @@ const AddTodo = ({ formData ,onSubmitSuccess }) => {
   );
 };
 
-export default AddTodo;
+export default Actions;

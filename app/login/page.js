@@ -4,7 +4,7 @@ import { authenticate } from '../lib/action/user';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from "@/components/ui/input"
 import { useFormState, useFormStatus} from "react-dom";
-import Submit from '@/components/Loading';
+import Submit from '@/components/loading';
 
 
 
